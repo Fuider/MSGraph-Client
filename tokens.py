@@ -13,6 +13,17 @@ class AUTH:
     def __init__(self):
         self.cliend_id = 'c7400ddc-07f0-45e5-866b-e40a57a5831e'
         self.scope = 'user.read mail.read offline_access'
+        try:
+            with open('token.json', mode='r') as ori_token:
+                all_date = json.load(ori_token)
+                self.acc_tk = all_date['access_token']
+                self.ref_tk = all_date['refresh_token']
+        except FileNotFoundError:
+            print('未登录！\n')
+            self.get_code()
+            self.qsl_code()
+            self.access_token()
+            self.save_tokens('new')
 
     def get_code(self):
         """获取长地址"""
