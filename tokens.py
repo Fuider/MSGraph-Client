@@ -11,14 +11,15 @@ class AUTH:
     """
 
     def __init__(self):
-        pass
+        self.cliend_id = 'c7400ddc-07f0-45e5-866b-e40a57a5831e'
+        self.scope = 'user.read mail.read offline_access'
 
     def get_code(self):
         """获取长地址"""
         global backsite
         backsite = input("""
 go to this site:
-https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=74424fcf-55d7-4e15-99d7-1663c0ba2e94&response_type=code&redirect_uri=https://login.microsoftonline.com/common/oauth2/nativeclient&response_mode=query&scope=offline_access%20user.read%20mail.read&state=200
+https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=c7400ddc-07f0-45e5-866b-e40a57a5831e&response_type=code&redirect_uri=https://login.microsoftonline.com/common/oauth2/nativeclient&response_mode=query&scope=offline_access%20user.read%20mail.read&state=200
 
 Paste the authenticated url here:
 """)
@@ -32,8 +33,8 @@ Paste the authenticated url here:
             'Content-Type': 'application/x-www-form-urlencoded',
         }
         data = {
-            'client_id': '74424fcf-55d7-4e15-99d7-1663c0ba2e94',
-            'scope': 'user.read mail.read offline_access',
+            'client_id': self.cliend_id,
+            'scope': self.scope,
             'code': code,
             'redirect_uri': 'https://login.microsoftonline.com/common/oauth2/nativeclient',
             'grant_type': 'authorization_code',
@@ -77,8 +78,8 @@ Paste the authenticated url here:
             'Content-Type': 'application/x-www-form-urlencoded',
         }
         data = {
-            'client_id': '74424fcf-55d7-4e15-99d7-1663c0ba2e94',
-            'scope': 'user.read mail.read offline_access',
+            'client_id': self.cliend_id,
+            'scope': self.scope,
             'refresh_token': self.ref_tk,
             'redirect_uri': 'https://login.microsoftonline.com/common/oauth2/nativeclient',
             'grant_type': 'refresh_token',
