@@ -1,7 +1,8 @@
-import requests
 from tokens import AUTH
 import requests
-
+import requests
+import json
+import os
 
 
 class get_profile:
@@ -23,4 +24,21 @@ class get_profile:
         self.r = requests.get(url, headers=headers)
         print(self.r.text)
 
-get_profile().ori_profile()
+    def save_profile(self):
+        """离线个人资料，方便查找"""
+        pr_dic = json.loads(self.r.text)
+        data4 = json.dumps(pr_dic, sort_keys=True,
+                           indent=4, separators=(',', ':'))
+        try:
+            with open('local\profile.json', mode='w') as ori_profile:
+                ori_profile.write(data4)
+
+        except FileNotFoundError:
+            File_Path = os.getcwd()+'\\local\\'
+            os.makedirs(File_Path)
+            self.save_profile()
+
+
+pr = get_profile()
+pr.ori_profile()
+pr.save_profile()

@@ -136,3 +136,5 @@ dmypy.json
 o365_token.txt
 token.txt
 token.json
+
+local/
