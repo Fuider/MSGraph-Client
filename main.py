@@ -1,6 +1,2 @@
-from tokens import AUTH
 
-token = AUTH()
-token.refresh_acc_tk()
-
-
+"""应用入口"""

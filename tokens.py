@@ -69,7 +69,7 @@ Paste the authenticated url here:
                 token_recorder.write(data3)
 
         elif noro == 'old':
-             with open('token.json', mode='w') as token_recorder:
+            with open('token.json', mode='w') as token_recorder:
                 data2 = json.loads(self.s.text)
                 data3 = json.dumps(data2, sort_keys=True,
                                    indent=4, separators=(',', ':'))
@@ -88,12 +88,15 @@ Paste the authenticated url here:
         headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
         }
-        data = {
-            'client_id': self.cliend_id,
-            'scope': self.scope,
-            'refresh_token': self.ref_tk,
-            'redirect_uri': 'https://login.microsoftonline.com/common/oauth2/nativeclient',
-            'grant_type': 'refresh_token',
-        }
-        self.s = requests.post(url, data=data, headers=headers)
-        print(self.s.text)
+        try:
+            data = {
+                'client_id': self.cliend_id,
+                'scope': self.scope,
+                'refresh_token': self.ref_tk,
+                'redirect_uri': 'https://login.microsoftonline.com/common/oauth2/nativeclient',
+                'grant_type': 'refresh_token',
+            }
+            self.s = requests.post(url, data=data, headers=headers)
+        except AttributeError:
+            self.load_tokens()
+            self.refresh_acc_tk()
