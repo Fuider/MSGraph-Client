@@ -30,12 +30,31 @@ class get_profile:
         data4 = json.dumps(pr_dic, sort_keys=True,
                            indent=4, separators=(',', ':'))
         try:
-            with open('local\profile.json', mode='w') as ori_profile:
+            with open('local\\profile.json', mode='w') as ori_profile:
                 ori_profile.write(data4)
 
         except FileNotFoundError:
             File_Path = os.getcwd()+'\\local\\'
             os.makedirs(File_Path)
+            self.save_profile()
+
+    def load_profile(self):
+        """从文件加载配置信息，注意，以unicode返回"""
+        try:
+            with open('local\\profile.json', mode='r') as prof:
+                all_pf = json.load(prof)
+                self.businessPhones = all_pf['businessPhones']
+                self.displayName = all_pf['displayName']
+                self.givenName = all_pf['givenName']
+                self.mail = all_pf['mail']
+                self.mobilePhone = all_pf['mobilePhone']
+                self.preferredLanguage = all_pf['preferredLanguage']
+                self.surname = all_pf['surname']
+                self.userPrincipalName = all_pf['userPrincipalName']
+        except FileNotFoundError:
+            File_Path = os.getcwd()+'\\local\\'
+            os.makedirs(File_Path)
+            self.ori_profile()
             self.save_profile()
 
 
