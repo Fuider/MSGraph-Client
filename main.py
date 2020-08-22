@@ -21,7 +21,7 @@ class enter:
         self.status = input('请输入序号:')
 
         if self.status == '1':
-            print('对接中..')
+            self.second_choose()
 
         elif self.status == '2':
             self.token_exists = os.path.isfile("token.json")
@@ -35,3 +35,24 @@ class enter:
                 tk.qsl_code()
                 tk.access_token()
                 tk.save_tokens('new')
+
+    def second_choose(self):
+        print("""
+            请输入您要获取的信息:
+            [1]工作电话
+            [2]全名
+            [3]名
+            [4]姓
+            [5]邮箱
+            [6]语言
+            [7]手机号
+            [8]登录名(主要邮箱/手机号)
+            """)
+
+        self.status = input('您要读取什么信息?请输入序号。\n')
+        print(pf.back_info(self.status))
+        os.system('pause')
+
+
+penter = enter()
+penter.first_choose()

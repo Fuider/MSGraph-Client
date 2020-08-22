@@ -56,8 +56,29 @@ class get_profile:
             os.makedirs(File_Path)
             self.ori_profile()
             self.save_profile()
+            self.load_profile()
 
+    def back_info(self, info_name):
+        """使用前，请load_profile"""
 
-pr = get_profile()
-pr.ori_profile()
-pr.save_profile()
+        try:
+            if info_name == '1':  # 工作电话
+                return self.businessPhones
+            elif info_name == '2':  # 全名
+                return self.displayName
+            elif info_name == '3':  # 名
+                return self.givenName
+            elif info_name == '4':  # 姓
+                return self.surname
+            elif info_name == '5':  # 邮箱
+                return self.mail
+            elif info_name == '6':  # 语言
+                return self.preferredLanguage
+            elif info_name == '7':  # 手机号
+                return self.mobilePhone
+            elif info_name == '8':  # 登录名(主要邮箱/手机号)
+                return self.userPrincipalName
+            else:
+                return '未找到结果'
+        except AttributeError:
+            self.load_profile()
