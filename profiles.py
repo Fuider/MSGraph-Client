@@ -12,6 +12,8 @@ class get_profile:
         self.tk = AUTH()
         print('开始刷新access token\n')
         self.tk.refresh_acc_tk()
+        self.tk.save_tokens('old')
+        self.tk.load_tokens()
         print('刷新完毕')
 
     def ori_profile(self):
@@ -25,7 +27,7 @@ class get_profile:
         print(self.r.text)
 
     def save_profile(self):
-        """离线个人资料，方便查找"""
+        """离线个人资料，方便查找,使用前，先ori_profile()"""
         pr_dic = json.loads(self.r.text)
         data4 = json.dumps(pr_dic, sort_keys=True,
                            indent=4, separators=(',', ':'))
@@ -35,7 +37,8 @@ class get_profile:
 
         except FileNotFoundError:
             File_Path = os.getcwd()+'\\local\\'
-            os.makedirs(File_Path)
+            if os.path.isdir(File_Path) != True:
+                os.makedirs(File_Path)
             self.save_profile()
 
     def load_profile(self):
@@ -53,7 +56,15 @@ class get_profile:
                 self.userPrincipalName = all_pf['userPrincipalName']
         except FileNotFoundError:
             File_Path = os.getcwd()+'\\local\\'
-            os.makedirs(File_Path)
+            if os.path.isdir(File_Path) != True:
+                os.makedirs(File_Path)
+            self.ori_profile()
+            self.save_profile()
+            self.load_profile()
+        except KeyError:
+            File_Path = os.getcwd()+'\\local\\'
+            if os.path.isdir(File_Path) != True:
+                os.makedirs(File_Path)
             self.ori_profile()
             self.save_profile()
             self.load_profile()
@@ -78,6 +89,13 @@ class get_profile:
                 return self.mobilePhone
             elif info_name == '8':  # 登录名(主要邮箱/手机号)
                 return self.userPrincipalName
+            elif info_name == '9':
+                self.ori_profile()
+                self.save_profile()
+                self.load_profile()
+                self.back_info(info_name)
+            elif info_name == '10':
+                os.system('pause')
             else:
                 return '未找到结果'
         except AttributeError:

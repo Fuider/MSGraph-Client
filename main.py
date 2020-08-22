@@ -47,9 +47,12 @@ class enter:
             [6]语言
             [7]手机号
             [8]登录名(主要邮箱/手机号)
+            [9]刷新
+            [10]退出
             """)
 
         self.status = input('您要读取什么信息?请输入序号。\n')
+        pf.load_profile()
         print(pf.back_info(self.status))
         os.system('pause')
 

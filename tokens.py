@@ -97,6 +97,7 @@ Paste the authenticated url here:
                 'grant_type': 'refresh_token',
             }
             self.s = requests.post(url, data=data, headers=headers)
+            self.save_tokens('old')
         except AttributeError:
             self.load_tokens()
             self.refresh_acc_tk()
