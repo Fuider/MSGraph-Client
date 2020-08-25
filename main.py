@@ -1,6 +1,6 @@
 import os
-from .tokens import *
-from .profiles import *
+from tokens import *
+from profiles import *
 
 """应用入口"""
 

@@ -1,4 +1,4 @@
-from .tokens import AUTH
+from tokens import AUTH
 import requests
 import requests
 import json
